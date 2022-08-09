@@ -18,25 +18,22 @@ class SecondFragment : Fragment() {
 
     private val args: SecondFragmentArgs by navArgs()
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-        _binding  = FragmentSecondBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        init()
+        glide()
 
     }
 
-    private fun init() = with(binding) {
+
+    private fun glide() = with(binding) {
         val apartment = args.liku as LikusData.Content
         Glide.with(picfr).load(apartment.cover).into(picfr)
 
@@ -45,12 +42,10 @@ class SecondFragment : Fragment() {
         publishdatefr.text = apartment.publishDate
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 
     /*override fun init(){
       val content = args.content as likusData.Content

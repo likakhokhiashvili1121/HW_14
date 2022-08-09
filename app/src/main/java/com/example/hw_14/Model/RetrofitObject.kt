@@ -9,11 +9,7 @@ object RetrofitObject {
 
     private const val BASE_URL = "\"https://run.mocky.io/"
     val retrofitBuilder by lazy {
-        Retrofit.Builder().
-        baseUrl(BASE_URL).
-        addConverterFactory(MoshiConverterFactory.
-        create()).
-        build()
+        Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(MoshiConverterFactory.create()).build()
     }
 
     fun getProducts()= retrofitBuilder.create(InfoGetter::class.java)

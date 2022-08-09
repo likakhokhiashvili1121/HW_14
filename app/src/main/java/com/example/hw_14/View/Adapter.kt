@@ -11,29 +11,30 @@ import com.example.hw_14.Model.LikusData
 import com.example.hw_14.databinding.ItemLayoutBinding
 
 
-class ApartmentAdapter: ListAdapter<LikusData.Content,ApartmentAdapter.MyViewHolder>(ItemCallback()) {
+class Adapter: ListAdapter<LikusData.Content, Adapter.ApartmentViewHolder>(ItemCallback()) {
 
-    var itemClickListener: ((LikusData.Content) -> Unit)? = null
+    var clickListener: ((LikusData.Content) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MyViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ApartmentViewHolder(
         ItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ApartmentViewHolder, position: Int) {
         holder.bind()
     }
 
-    inner class MyViewHolder(private val binding: ItemLayoutBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ApartmentViewHolder(private val binding: ItemLayoutBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-            val content = currentList[adapterPosition]
+            val apartment = getItem(adapterPosition)
             binding.apply {
-                Glide.with(this.pic).load(content.cover).into(pic)
-
-                title.text = content.titleKA
-                description.text = content.descriptionKA
-                publishdate.text = content.publishDate
-                root.setOnClickListener {
-                    itemClickListener?.invoke(content)
+                Glide.with(this.pic)
+                    .load(apartment.cover)
+                    .into(pic)
+                title.text = apartment.titleKA
+                description.text = apartment.descriptionKA?.trim()
+                publishdate.text = apartment.publishDate
+                this.root.setOnClickListener {
+                    clickListener?.invoke(apartment)
                 }
             }
         }
